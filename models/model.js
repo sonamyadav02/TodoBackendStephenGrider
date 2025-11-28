@@ -19,3 +19,5 @@ const todo = new schema({
     default: "pending",
   },
 });
+
+export {todo};
