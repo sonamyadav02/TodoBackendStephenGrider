@@ -3,4 +3,4 @@
 # GET {{BASE_URL}}
 # # Content-Type: application/json
 
-GET {{BASE_URL}}/todos
+GET {{BASE_URL}}/todo/692a702f1769a4fb7d6e9030

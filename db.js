@@ -11,6 +11,7 @@ var connection;
 
 async function connectMongoDB() {
   connection = await mongoose.connect(mongoDB);
+  console.log("Connected to Database!!");
 }
 
 try {

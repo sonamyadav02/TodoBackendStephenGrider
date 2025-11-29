@@ -14,4 +14,10 @@ router.get("/todos", async (req, res) => {
   return res.json({ mess: "hi there", response });
 });
 
+router.get("/todo/:id", async (req, res) => {
+  const todo_id = req.params.id;
+  const result = await todo.findOne({ _id: todo_id });
+  return res.json({ result });
+});
+
 module.exports = router;
