@@ -55,4 +55,10 @@ router.delete("/delete/:id", async (req, res) => {
 
   return res.json({ result });
 });
+
+router.delete("/delete-all", async (req, res) => {
+  const result = await todo.deleteMany();
+
+  return res.json({ result });
+});
 module.exports = router;
