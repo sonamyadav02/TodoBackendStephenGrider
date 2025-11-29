@@ -4,7 +4,7 @@ const cutomerRouter = require("./customerRouter/customerRoute");
 const todoRouter = require("./todoRouter/todoRouter");
 const loginRouter = require("./loginRoute/loginRoute");
 
-router.use("/", cutomerRouter);
+router.use("/customer", cutomerRouter);
 router.use("/", todoRouter);
 router.use("/", loginRouter);
 

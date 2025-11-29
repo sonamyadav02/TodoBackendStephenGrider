@@ -6,7 +6,7 @@ const customerSchema = new Schema({
   email: {
     type: String,
   },
-  password: {
+  hasedPassword: {
     type: String,
   },
 });

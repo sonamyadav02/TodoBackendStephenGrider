@@ -1,0 +1,9 @@
+@BASE_URL=http://localhost:3000/app/v1
+
+POST {{BASE_URL}}/customer/sign-up
+Content-Type: application/json
+
+{
+    "email":"kanu@13",
+    "hasedPassword":"djfkej###"
+}

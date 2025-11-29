@@ -1,0 +1,17 @@
+@BASE_URL=http://localhost:3000/app/v1/customer
+
+GET {{BASE_URL}}/
+
+###
+
+GET {{BASE_URL}}/692abf91798a1d1a32385164
+
+###
+
+PUT {{BASE_URL}}/update/692abf91798a1d1a32385164
+Content-Type: application/json
+
+{
+    "email":"ram@14",
+    "hasedPassword":"kfjdkfjdj"
+}
