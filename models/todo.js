@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const todoSchema = new Schema({
   title: String,
-  prority: {
+  priority: {
     type: String,
     enum: ["High", "Medium", "Low"],
     default: "Medium",
