@@ -12,7 +12,12 @@ const tokenAuthorizer = function (req, res, next) {
   }
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = { username: decoded.username, user_id: decoded.user_id };
+    req.user = {
+      username: decoded.username,
+      user_id: decoded.user_id,
+      role: decoded.role,
+    };
+    console.log(decoded);
     next();
   } catch (err) {
     if (err.message == "jwt expired") {

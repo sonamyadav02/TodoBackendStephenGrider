@@ -8,8 +8,15 @@ const router = express.Router();
 router.use(tokenAuthorizer);
 
 router.get("/todos", async (req, res) => {
-  const response = await todo.find({});
-  return res.json({ response });
+  const role = req.user.role;
+  if (role === "admin") {
+    const response = await todo.find({});
+    return res.json({ response });
+  } else {
+    return res.status(401).json({
+      message: "✖✖ Unauthorized Access ✖✖",
+    });
+  }
 });
 
 router.get("/todo/:id", async (req, res) => {
@@ -60,8 +67,13 @@ router.delete("/delete/:id", async (req, res) => {
 });
 
 router.delete("/delete-all", async (req, res) => {
-  const result = await todo.deleteMany();
+  const role = req.user.role;
+  if (role === "admin") {
+    const result = await todo.deleteMany();
 
-  return res.json({ result });
+    return res.json({ result });
+  } else {
+    return res.status(401).json({ message: "✖✖ Unauthorized Access ✖✖" });
+  }
 });
 module.exports = router;

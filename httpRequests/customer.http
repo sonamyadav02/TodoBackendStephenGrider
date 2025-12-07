@@ -1,21 +1,25 @@
 @BASE_URL=http://localhost:3000/app/v1/customer
-
+@AuthorizationToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InN1bWl0QGdtYWlsLmNvbSIsInVzZXJfaWQiOiI2OTM1ODAwYzI5MjY2NjFhNzk1MzM4YWUiLCJyb2xlIjoiY3VzdG9tZXIiLCJpYXQiOjE3NjUxMTUyNDUsImV4cCI6MTc2NTExNjE0NX0.2tUmwGrA9nxzw6WY-vHi9hSwr_vg1UKq9YwUsS9oKTE
 GET {{BASE_URL}}/
+Authorization: Bearer {{AuthorizationToken}}
 
 ###
 
-GET {{BASE_URL}}/692abf91798a1d1a32385164
+GET {{BASE_URL}}/6935800c2926661a795338ae
+Authorization: Bearer {{AuthorizationToken}}
 
 ###
 
-PUT {{BASE_URL}}/update/692abf91798a1d1a32385164
+PUT {{BASE_URL}}/update/6935800c2926661a795338ae
+Authorization: Bearer {{AuthorizationToken}}
 Content-Type: application/json
 
 {
-    "email":"ram@194",
-    "hasedPassword":"kfjdkfjdj"
+    "email": "sumit@gmail.com",
+    "hasedPassword":"123"
 }
 
 ###
 
 DELETE {{BASE_URL}}/delete-all
+Authorization: Bearer {{AuthorizationToken}}

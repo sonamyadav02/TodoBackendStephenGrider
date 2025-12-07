@@ -1,15 +1,24 @@
 const { customer } = require("../../models/customer");
 const express = require("express");
 const loginRouter = require("./loginRoute/loginRoute");
+const { tokenAuthorizer } = require("../../middleware/tokenAuthorizer");
 
 const router = express.Router();
 router.use("/", loginRouter);
+router.use(tokenAuthorizer);
 
-router.get("", async (req, res) => {
-  const result = await customer.find();
-  return res.json({
-    result,
-  });
+router.get("/", async (req, res) => {
+  const role = req.user.role;
+  if (role === "admin") {
+    const result = await customer.find();
+    return res.json({
+      result,
+    });
+  } else {
+    return res.status(401).json({
+      message: "✖✖ Unauthorized Access ✖✖",
+    });
+  }
 });
 
 router.get("/:id", async (req, res) => {
@@ -47,10 +56,17 @@ router.delete("/delete/:id", async (req, res) => {
 });
 
 router.delete("/delete-all", async (req, res) => {
-  const result = await customer.deleteMany();
-  return res.status(200).json({
-    result,
-  });
+  const role = req.user.role;
+  if (role === "admin") {
+    const result = await customer.deleteMany();
+    return res.status(200).json({
+      result,
+    });
+  } else {
+    return res.status(401).json({
+      message: "✖✖ Unauthorized Access ✖✖",
+    });
+  }
 });
 
 router.post("/:id", async (req, res) => {

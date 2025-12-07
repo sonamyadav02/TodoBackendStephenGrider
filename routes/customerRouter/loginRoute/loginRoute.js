@@ -38,7 +38,7 @@ route.get("/sign-in", async (req, res) => {
 
   if (!isMatch) return res.json({ mess: "Please enter Valid credentials" });
 
-  const payload = { username: user.email, user_id: user._id };
+  const payload = { username: user.email, user_id: user._id, role: user.role };
 
   const token = jwt.sign(payload, process.env.JWT_SECRET, {
     expiresIn: "15m",
