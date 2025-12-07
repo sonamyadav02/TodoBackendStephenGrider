@@ -3,6 +3,7 @@ const express = require("express");
 const loginRouter = require("./loginRoute/loginRoute");
 
 const router = express.Router();
+router.use("/", loginRouter);
 
 router.get("", async (req, res) => {
   const result = await customer.find();
@@ -49,6 +50,8 @@ router.delete("/delete-all", async (req, res) => {
   const result = await customer.deleteMany();
 });
 
-router.use("/", loginRouter);
+router.post("/:id", async (req, res) => {
+  return res.json({ mess: "working" });
+});
 
 module.exports = router;

@@ -1,9 +1,24 @@
-@BASE_URL=http://localhost:3000/app/v1
+@BASE_URL=http://localhost:3000/app/v1/customer
 
-POST {{BASE_URL}}/customer/sign-up
+POST {{BASE_URL}}/sign-up
+Content-Type: application/json
+
+{
+    "email":"sumana@123",
+    "password":"djfkej###"
+}
+
+###
+
+GET {{BASE_URL}}/sign-in
 Content-Type: application/json
 
 {
     "email":"sumit@123",
     "password":"djfkej###"
 }
+
+
+###
+
+GET {{BASE_URL}}/testing
