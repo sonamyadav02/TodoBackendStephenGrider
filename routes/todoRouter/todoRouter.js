@@ -1,12 +1,15 @@
 const express = require("express");
 const app = express();
 const { todo } = require("../../models/todo");
+const { tokenAuthorizer } = require("../../middleware/tokenAuthorizer");
 
 const router = express.Router();
 
+router.use(tokenAuthorizer);
+
 router.get("/todos", async (req, res) => {
   const response = await todo.find({});
-  return res.json({ mess: "hi there", response });
+  return res.json({ response });
 });
 
 router.get("/todo/:id", async (req, res) => {

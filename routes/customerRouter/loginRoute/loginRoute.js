@@ -29,7 +29,7 @@ route.get("/sign-in", async (req, res) => {
 
   if (user == null) return res.json({ mess: "Please enter valid credentials" });
 
-  const isMatch = bcrypt.compare(password, user.hasedPassword);
+  const isMatch = await bcrypt.compare(password, user.hasedPassword); //don't remove await
 
   if (!isMatch) return res.json({ mess: "Please enter Valid credentials" });
 
@@ -44,11 +44,4 @@ route.get("/sign-in", async (req, res) => {
   });
 });
 
-route.get("/sign-in/verify", tokenAuthorizer, async (req, res) => {
-  const { user_id, username } = req.user;
-  return res.json({
-    user_id,
-    username,
-  });
-});
 module.exports = route;
