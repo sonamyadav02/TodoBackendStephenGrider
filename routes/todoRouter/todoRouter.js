@@ -11,23 +11,22 @@ router.use(tokenAuthorizer);
 router.get("/todos", async (req, res) => {
   const role = req.user.role;
   if (role === "admin") {
-    try{
+    try {
       const response = await todo.find({});
-    const size = await todo.aggregate([
-      {
-        $group: {
-          _id: null,
-          combined_object_size: { $sum: { $bsonSize: "$$ROOT" } },
+      const size = await todo.aggregate([
+        {
+          $group: {
+            _id: null,
+            combined_object_size: { $sum: { $bsonSize: "$$ROOT" } },
+          },
         },
-      },
-    ]);
-    return res.json({ response, size });
-    }
-    catch(err){
+      ]);
+      return res.json({ response, size });
+    } catch (err) {
       return res.json({
-        mess:"Error ocurred while fetching all the todos",
-        desc:err,
-      })
+        mess: "Error ocurred while fetching all the todos",
+        desc: err,
+      });
     }
   } else {
     return res.status(401).json({
@@ -37,14 +36,21 @@ router.get("/todos", async (req, res) => {
 });
 
 router.get("/todo/:id", async (req, res) => {
-  const todo_id = req.params.id;
-  const user = req.user;
-  const result = await todo.findOne({ _id: todo_id });
-  const response = await customer.findOne({
-    _id: user.user_id,
-  });
-  const requiredTodo = response.todos.find((todo) => todo._id == todo_id);
-  return res.json({ result, requiredTodo });
+  try {
+    const todo_id = req.params.id;
+    const user = req.user;
+    const result = await todo.findOne({ _id: todo_id });
+    const response = await customer.findOne({
+      _id: user.user_id,
+    });
+    const requiredTodo = response.todos.find((todo) => todo._id == todo_id);
+    return res.json({ result, requiredTodo });
+  } catch (err) {
+    return res.json({
+      mess: "error fetching todo by id at '/todo/:id'",
+      desc: err,
+    });
+  }
 });
 
 router.post("/add-todo", async (req, res) => {
