@@ -54,37 +54,41 @@ router.get("/todo/:id", async (req, res) => {
 });
 
 router.post("/add-todo", async (req, res) => {
-  const { title, priority, due, status } = req.body;
-  const { user_id, username, role } = req.user;
+  try {
+    const { title, priority, due, status } = req.body;
+    const { user_id, username, role } = req.user;
 
-  const newTodo = new todo({
-    title,
-    priority,
-    due,
-    status,
-  });
-  const result = await newTodo.save();
+    const newTodo = new todo({
+      title,
+      priority,
+      due,
+      status,
+    });
+    const result = await newTodo.save();
 
-  const updateUser = await customer.updateOne(
-    { _id: user_id },
-    {
-      $push: {
-        todos: {
-          title,
-          priority,
-          due,
-          status,
+    const updateUser = await customer.updateOne(
+      { _id: user_id },
+      {
+        $push: {
+          todos: {
+            title,
+            priority,
+            due,
+            status,
+          },
         },
-      },
-    }
-  );
+      }
+    );
 
-  const user = await customer.findOne({ _id: user_id });
-  return res.json({
-    result,
-    updateUser,
-    user,
-  });
+    const user = await customer.findOne({ _id: user_id });
+    return res.json({
+      result,
+      updateUser,
+      user,
+    });
+  } catch (err) {
+    return res.json({ message: "Error adding todo at /add-todo", desc: err });
+  }
 });
 
 router.put("/update/:id", async (req, res) => {
