@@ -11,7 +11,8 @@ router.use(tokenAuthorizer);
 router.get("/todos", async (req, res) => {
   const role = req.user.role;
   if (role === "admin") {
-    const response = await todo.find({});
+    try{
+      const response = await todo.find({});
     const size = await todo.aggregate([
       {
         $group: {
@@ -21,6 +22,13 @@ router.get("/todos", async (req, res) => {
       },
     ]);
     return res.json({ response, size });
+    }
+    catch(err){
+      return res.json({
+        mess:"Error ocurred while fetching all the todos",
+        desc:err,
+      })
+    }
   } else {
     return res.status(401).json({
       message: "✖✖ Unauthorized Access ✖✖",
